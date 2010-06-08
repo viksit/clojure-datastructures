@@ -111,4 +111,19 @@
 
 (in-order mytree)
 
+(defn queue [& xs]
+  (when (seq xs)
+   (apply conj clojure.lang.PersistentQueue/EMPTY xs)))
 
+(defn level-order [rootnode]
+  (loop [curlevel (queue rootnode)]
+    (when-not (empty? curlevel)
+      (if-let [n (first curlevel)]
+	(do
+	  (prn (seq curlevel))
+	  (prn (n :value))
+	  (recur (conj (pop curlevel) (n :left) (n :right))))
+	(recur (pop curlevel))))))
+		       
+
+(level-order mytree)
