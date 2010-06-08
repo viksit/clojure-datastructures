@@ -1,5 +1,7 @@
 (ns viksit.cljfsd)
 
+; Basic stack functions from Chapter 2 (Okasaki)
+
 (defn make-stack []
   "Empty stack"
   nil)
@@ -18,4 +20,26 @@
 
 (defn stack-size [stack]
   "Find no of items on the stack"
-  (
+  (count stack))
+
+(defn map-stack [fun stack]
+  (map fun stack))
+
+(defn stack-from-list [lst]
+  lst)
+
+;; Exercise 2.1
+;; Take a list and return a list of all suffixes in decreasing order of length
+(defn suf [coll]
+  (loop [c coll
+        ret []]
+        (if (empty? c)
+    ret
+    (recur (next c)
+           (conj ret c)))))
+
+
+;; 2.2 Binary Search Trees
+
+
+

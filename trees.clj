@@ -47,11 +47,13 @@
 	 (and (not (nil? lft)) (tree-search lft e))
 	 (and (not (nil? rt)) (tree-search rt e)))))))
 
+
 (tree-search mytree 1)
 (tree-search mytree 2)
 (tree-search mytree 3)
 (tree-search mytree 4)
 (tree-search mytree 5)
+
 (tree-search mytree 6)
 (tree-search mytree 11)
 (tree-search mytree 10)
@@ -66,13 +68,47 @@
   (tree-search mytree i))
 
 (loop [i 0]
-  (when-not (== i 10) (tree-search mytree i) (recur (inc i))))
+  (when-not (== i 10)
+    (tree-search mytree i) (recur (inc i))))
 
 (loop [i 0 r []]
   (if-not (== i 10)
     (recur (inc i) (conj r (tree-search mytree i))) r))
 
 
+; Traversal
+; pass a function and call that
+(defn pre-order [bt]
+  (let [curval (bt :value) lft (bt :left) rt (bt :right) r []]
+    (if (nil? curval)
+      false
+      (or
+       (println (str "Visited " curval))
+       (and (not (nil? lft)) (pre-order lft))
+       (and (not (nil? rt)) (pre-order rt))))))
+      
+(pre-order mytree)
 
+(defn post-order [bt]
+  (let [curval (bt :value) lft (bt :left) rt (bt :right) r []]
+    (if (nil? curval)
+      false
+    	(or
+	 (and (not (nil? lft)) (post-order lft))
+	 (and (not (nil? rt)) (post-order rt))
+	 (println (str "Visited " curval))))))
+
+(post-order mytree)
+
+(defn in-order [bt]
+  (let [curval (bt :value) lft (bt :left) rt (bt :right) r []]
+    (if (nil? curval)
+      false
+   	(or
+	 (and (not (nil? lft)) (in-order lft))
+	 (println (str "Visited " curval))
+	 (and (not (nil? rt)) (in-order rt))))))		  
+
+(in-order mytree)
 
 
